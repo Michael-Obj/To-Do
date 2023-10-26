@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <title>To Do</title>
+    
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;  
+        }
+
+        #todo{
+            padding: 50px 420px 10px;
+            position: relative;
+            width: 100%;
+        }
+
+        .user{
+            text-transform: capitalize;
+            display: flex; 
+            flex-direction: row; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 0px 15px;
+            color: #337ab7;
+        }
+
+        .user a:hover{
+            text-decoration: none;
+        }
+
+        .user .back_home{
+            border-radius: 5px; 
+            border: 1px solid rgb(203, 200, 200); 
+            padding: 5px 10px;
+        }
+
+        .heading{
+            display: flex; 
+            flex-direction: row; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 0px 15px;
+        }
+
+        .heading h2{
+            font-weight: 700;
+            padding-bottom: 15px;
+        }
+
+        .add button{
+            font-size: 20px;
+            width: 100%;
+        }
+
+        .add span{
+            font-size: 15px;
+            border-radius: 30px; 
+            padding: 5px 5px; 
+            background-color: #5bc0de; 
+            color: #fff; 
+        }
+
+        .search-sort{
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: space-between;
+            padding: 0px 15px;
+            margin-bottom:17px;
+        }
+
+        #search{
+            width: 75%;
+        }
+
+        input[type=search]{
+            border-radius: 20px;
+            padding: 0px 20px;
+        }
+
+        #sort{
+            width: 6%; 
+            padding-right: 82px;
+        }
+
+        #box{
+            font-size: 17px; 
+            word-wrap: break-word;
+            text-overflow: ellipsis; 
+        }       
+
+        #actions{
+            float: right;
+        }
+
+
+
+        @media screen and ((max-width: 1200px) and (min-width: 1001px)){
+            #todo{
+                padding: 50px 320px 10px;
+            } 
+            
+            #search{
+                width: 74%;
+            }
+        }
+
+
+        @media screen and ((max-width: 1000px) and (min-width: 801px)){
+            #todo{
+                padding: 50px 200px 10px;
+            }
+
+            #search{
+                width: 77%;
+            }
+        }
+
+
+        @media screen and ((max-width: 800px) and (min-width: 601px)){
+            #todo{
+                padding: 50px 125px 10px;
+            }
+
+            #search{
+                width: 73%;
+            }
+        }
+
+
+        @media screen and ((max-width: 600px) and (min-width: 401px)){
+            #todo{
+                padding: 50px 60px 10px;
+            }
+
+            .heading, .search-sort{
+                padding: 0px;
+            }
+
+            #search{
+                width: 70%;
+            }
+        }
+
+
+        @media(max-width: 400px){
+            #todo{
+                padding: 50px 20px 10px;
+            }
+
+            #search{
+                width: 65%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="todo">
+        <div class="user">
+            <a>welcome, {{username}} <span class="glyphicon glyphicon-user"></span></a>
+
+            {% if query is not None %}
+                <a href="{% url 'home' %}" class="back_home">Back to Home</a>               
+            {%  endif %}
+
+            <a href="{% url 'logoutUser' %}">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+        </div>
+
+
+        <div class="heading">
+            <h2>ToDo App</h2>
+   
+            <div class="add">
+                <button type="button" data-toggle="modal" data-target="#addModal" class="btn btn-info btn-block"> Add Item
+                    <span class="glyphicon glyphicon-plus"></span>   
+                </button>
+            </div>
+        </div>
+
+
+        <div class="search-sort">
+            <form action="{% url 'searchResult' %}" method="POST" id="search">
+                {% csrf_token %}
+
+                {% if query is not None %}
+                    <input class="form-control" type="search" placeholder="Search" id="search-input" value="{{query}}" name="search_value" required>
+                {% else %}
+                    <input class="form-control" type="search" placeholder="Search" id="search-input" name="search_value" required>
+                {%  endif %}
+            </form>
+
+            <div class="dropdown" id="sort">
+                <button type="button" class=" btn btn-default dropdown-toogle" data-toggle="dropdown" data-target="#my_drop">Sort by <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{% url 'sort' sort_param='alphabet' %}">Alphabetical (A-Z)</a></li>
+                    <li class = "divider"></li>
+                    <li><a href="{% url 'sort' sort_param='date' %}">Date</a></li>
+                </ul>
+            </div> 
+        </div>
+        
+
+        {% for message in messages %}
+            {% if message.tags != "success" %}
+
+            <li class="list-group-item list-group-item-danger">{{message}}</li>
+
+            {% else %}
+            
+            <li class="list-group-item list-group-item-{{message.tags}}">{{message}}</li>
+
+            {% endif %} 
+        {% endfor %}
+        <br>
+
+
+        <div class="panel-group">
+            {% for list in todoLists %}        
+
+            <div class="panel panel-default">
+                <div class="panel-body" id="box">
+                    {{list.input_field}}
+                    
+                    <div id="actions">
+                        <a class="btn btn-success" id="edit" href="{% url 'getById' list.id %}"> Edit</a>                        
+                        <a class="btn btn-danger" id="delete" href="{% url 'deleting' list.id %}"> Delete</a>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <!--createToDo modal-->
+    <div class="modal fade" id="addModal" role="dialog">
+        <div class="modal-dialog">
+        
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Create ToDo</h3>
+                </div>
+                
+                <form action="{% url 'create' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="input_field" placeholder="Add new item" name="input_field" required>
+                        </div>
+                    </div>     
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Add Item</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>        
+            </div>
+        </div>
+    </div>
+    
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

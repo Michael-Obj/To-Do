@@ -1,0 +1,103 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;  
+}
+
+#todo{
+    padding: 50px 420px 10px;
+    position: relative;
+    width: 100%;
+}
+
+.user{
+    text-transform: capitalize;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0px 15px;
+}
+
+.user a:hover{
+    text-decoration: none;
+}
+
+.heading{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0px 15px;
+}
+
+.heading h2{
+    font-weight: 700;
+    padding-bottom: 15px;
+}
+
+.add button{
+    font-size: 20px;
+    width: 100%;
+}
+
+.add span{
+    font-size: 15px;
+    border-radius: 30px; 
+    padding: 5px 5px; 
+    background-color: #5bc0de; 
+    color: #fff; 
+}
+
+#box{
+    font-size: 17px; 
+    word-wrap: break-word;
+    text-overflow: ellipsis; 
+}       
+
+#actions{
+    float: right;
+}
+
+
+
+@media screen and ((max-width: 1200px) and (min-width: 1001px)){
+    #todo{
+        padding: 50px 320px 10px;
+    }   
+}
+
+
+@media screen and ((max-width: 1000px) and (min-width: 801px)){
+    #todo{
+        padding: 50px 200px 10px;
+    }
+}
+
+
+@media screen and ((max-width: 800px) and (min-width: 601px)){
+    #todo{
+        padding: 50px 125px 10px;
+    }
+}
+
+
+@media screen and ((max-width: 600px) and (min-width: 401px)){
+    #todo{
+        padding: 50px 60px 10px;
+    }
+
+    .heading{
+        padding: 0px;
+    }
+}
+
+
+@media(max-width: 400px){
+    #todo{
+        padding: 50px 20px 10px;
+    }
+}
+
+
+
