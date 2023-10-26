@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Register</title>
+
+    <style>
+        .register{
+            padding: 80px 460px 10px;
+            width: 100%;
+        }
+
+        form{
+            border: 1px solid rgb(156, 153, 153);
+            border-radius: 5px;
+            padding: 20px 35px 30px;
+        }
+        
+        h2{
+            margin: 10px;
+        }
+
+        li{
+            margin: 10px;
+            border-radius: 2px;
+        }
+
+        .register .input-group, .button{
+            padding: 10px;
+        }
+
+        .form-control{
+            padding: 20px 15px;
+        }
+
+
+        @media screen and ((max-width: 1200px) and (min-width: 1001px)){
+            .register{
+                padding: 80px 350px 10px;
+            }
+
+            form{
+                padding: 20px 20px 30px;
+            }
+        }
+
+
+        @media screen and ((max-width: 1000px) and (min-width: 801px)){
+            .register{
+                padding: 80px 250px 10px;
+            }
+
+            form{
+                padding: 20px 20px 30px;
+            }
+        }
+
+
+        @media screen and ((max-width: 800px) and (min-width: 601px)){
+            .register{
+                padding: 80px 140px 10px;
+            }
+
+            form{
+                padding: 20px 20px 30px;
+            }
+        }
+
+
+        @media screen and ((max-width: 600px) and (min-width: 401px)){
+            .register{
+                padding: 80px 70px 10px;
+            }
+
+            form{
+                padding: 20px 10px 30px;
+            }
+        }
+
+
+        @media(max-width: 400px){
+            .register{
+                padding: 80px 20px 10px;
+            }
+
+            form{
+                padding: 20px 10px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register">
+        <form action="{% url 'registerUser' %}" method="POST">
+            {% csrf_token %}
+
+            <h2>Register</h2>
+
+            {% for message in messages %}
+            <li class="list-group-item list-group-item-danger">{{message}}</li>
+            {% endfor %}
+
+            <div class="input-group">
+                <input id="email" type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>   
+            </div>
+            <div class="input-group">
+              <input id="username" type="text" class="form-control" name="username" placeholder="Username" required>
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>   
+            </div>
+            <div class="input-group">
+              <input id="myPassword" type="password" class="form-control" name="password" placeholder="Password" required>
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            </div>
+            <div class="input-group">
+                <input id="myPassword" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            </div>
+            
+            <div class="button">
+                <button type="submit" class="btn btn-md btn-success">Register</button>
+            </div>
+    
+            <p style="text-align: center; padding-top: 30px;">You have already have an account? <a href="{% url 'loginUser' %}">Login</a></p>
+        </form>
+    </div>
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    
+</body>
+</html>
