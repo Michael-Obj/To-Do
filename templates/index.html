@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta name="keywords" content="To-Do, To-Do List, Todo, Notepad, Notes, Online To-Do, Online Note">
+    <meta name="description" content="To-do is an online platform designed to help individuals to create tasks, organize tasks and enhance productivity.">
+    <link rel="canonical" href="https://todo-sgcl.onrender.com/">
+    <link rel="alternate" href="https://todo-sgcl.onrender.com/" hreflang="x-default">
+  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/todo_favicon.png' %}">
     
     <title>To Do</title>
     
@@ -20,7 +25,7 @@
         }
 
         #todo{
-            padding: 50px 420px 10px;
+            padding: 50px 420px;
             position: relative;
             width: 100%;
         }
@@ -103,7 +108,6 @@
         #actions{
             float: right;
         }
-
 
 
         @media screen and ((max-width: 1200px) and (min-width: 1001px)){
@@ -241,8 +245,8 @@
 
             {% endfor %}
         </div>
-    </div>
-
+        
+        
 
     <!--createToDo modal-->
     <div class="modal fade" id="addModal" role="dialog">
@@ -272,6 +276,7 @@
         </div>
     </div>
     
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
