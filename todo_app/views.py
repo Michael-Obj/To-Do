@@ -68,6 +68,7 @@ def CreateToDo(request):
                 if len(input_field) != 0:
                     user_id = request.session["userId"]
                     user_obj = User.objects.get(pk = user_id)
+                    
                     todo = ToDo(
                         input_field=input_field,
                         user=user_obj

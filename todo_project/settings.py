@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'todo_project.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.parse('postgres://todonew_bufx_user:kOrEu3t0AXpzNwS33SCaRh3t6ueQ0S08@dpg-cmp2l3qcn0vc73ckmfig-a.oregon-postgres.render.com/todonew_bufx')
+    'default': dj_database_url.parse('postgres://todonew_jm1y_user:z6fLUay7lCAIZZ80LJJ97XmjG8ZJgSia@dpg-col6iqa0si5c73e6vqo0-a.oregon-postgres.render.com/todonew_jm1y')
 }
 
 
